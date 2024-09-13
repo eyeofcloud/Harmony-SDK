@@ -1,13 +1,22 @@
-import {createInstance, EventTags} from "eyeofcloud/src/packages/eyeofcloud-sdk/lib/index.node"
-import http from '@ohos.net.http';
-interface attribute {
-  logged_in: boolean;
-};
+import {
+  Client,
+  createInstance,
+  EventTags,
+  UserAttributes,
+  setDatafileUrlTemplate,
+  setEventUrl
+} from "eyeofcloud/src/packages/eyeofcloud-sdk/lib/index.node"
 
 @Entry
 @Component
 struct Index {
   @State message: string = 'Hello World';
+  eyeofcloudClient: Client | null | undefined = null
+  aboutToAppear(): void {
+    setDatafileUrlTemplate("https://cdn.eyeofcloud.com/datafiles/%s.json")
+    setEventUrl("https://event.eyeofcloud.com/v1/events")
+    this.eyeofcloudClient = createInstance({sdkKey: "1000563_ebf080bb426e7555", context: getContext()})
+  }
 
   build() {
     Column() {
@@ -23,11 +32,9 @@ struct Index {
       .width('40%')
       .height('5%')
       .onClick(() => {
-        // this.onRequest()
-        let eyeofcloudClient = createInstance({sdkKey: "1000563_ebf080bb426e7555"})
-        eyeofcloudClient?.onReady().then(() => {
-          let attributes: attribute = { logged_in: true };
-          let user = eyeofcloudClient?.createUserContext("3", attributes)
+        this.eyeofcloudClient?.onReady().then(() => {
+          let attributes: UserAttributes = {city: "南京"};
+          let user = this.eyeofcloudClient?.createUserContext("3", attributes)
           try {
             let decision = user?.decide("buy")
             let tags: EventTags = {name: "a"}
@@ -43,6 +50,4 @@ struct Index {
     .height("100%")
     .margin({top: "300"})
   }
-
-
 }
