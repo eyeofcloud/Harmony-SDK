@@ -37,22 +37,14 @@ const eyeofcloudClient = createInstance({
 eyeofcloudClient.onReady().then(() => {   
     var attributes: UserAttributes = { city: "南京" };   
     var user = eyeofcloudClient.createUserContext('user123', attributes);    
-    var decision = user.decide('product_sort');   
+    var decision = user.decide('Your flagKey');   
     var variationKey = decision['variationKey'];    
     if (variationKey === null) {     
         console.log(' decision error: ', decision['reasons']);   
     }    
     var enabled = decision['enabled'];    
-    if (enabled) {     
-        var sortMethod = decision.variables['sort_method'];     
-        // execute code for sort method value   
-    }    
-    if (variationKey === 'control') {     
-        // Execute code for control variation   
-    } 
-    else if (variationKey === 'treatment') {     
-        // Execute code for treatment variation   
-    }       
-    user.trackEvent('purchased'); // Track an event   
+
+    // Track an evnet
+    user.trackEvent('Your eventName'); // Track an event   
 });
 ```
