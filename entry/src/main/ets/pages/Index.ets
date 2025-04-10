@@ -15,7 +15,7 @@ struct Index {
   aboutToAppear(): void {
     setDatafileUrlTemplate("https://cdn.eyeofcloud.com/datafiles/%s.json")
     setEventUrl("https://event.eyeofcloud.com/v1/events")
-    this.eyeofcloudClient = createInstance({sdkKey: "1000563_ebf080bb426e7555", context: getContext()})
+    this.eyeofcloudClient = createInstance({sdkKey: "1000122_2e2d7fbdea1afc51"})
   }
 
   build() {
@@ -34,10 +34,10 @@ struct Index {
       .onClick(() => {
         this.eyeofcloudClient?.onReady().then(() => {
           let attributes: UserAttributes = {city: "南京"};
-          let user = this.eyeofcloudClient?.createUserContext("3", attributes)
+          let user = this.eyeofcloudClient?.createUserContext("user123", attributes)
           try {
             let decision = user?.decide("buy")
-            let tags: EventTags = {name: "a"}
+            let tags: EventTags = {name: "eventTags"}
             user?.trackEvent("buy", tags)
             this.message = decision?.variationKey as string
           }catch (e) {
