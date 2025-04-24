@@ -39,4 +39,4 @@ entry/src/main/module.json5
 
 # 示例用法
 
-本SDK附带一个简易演示示例，可在DevEoc中打开本项目运行示例, 示例代码在pages文件夹下
+本SDK即是一个简易演示示例，可在DevEoc中打开本项目运行示例, 示例代码在pages文件夹下
